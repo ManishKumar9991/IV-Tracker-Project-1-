@@ -1,0 +1,77 @@
+<%- include('partials/header'); -%>
+
+<form action="/login">
+  <h2>Login</h2>
+  <label for="email">Email</label>
+  <input type="text" name="email" required />
+  <div class="email error"></div>
+  <label for="password">Password</label>
+  <input type="password" name="password" required />
+  <div class="password error"></div>
+  <button>login</button>
+  <div class="A">
+  <p>Need an account? 
+    <a href="/signup"  style="color: coral;">Sign Up</a>
+    </p>
+</div>
+</form>
+
+<style>
+  body{
+    background-image: url('misc/home.webp');
+    background-size: cover;
+  }
+</style>
+
+<%- include('partials/footer'); -%>
+
+<script>
+
+  const form = document.querySelector('form');
+  const emailError = document.querySelector('.email.error');
+  const passwordError = document.querySelector('.password.error');
+
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();  //this will prevent the browser to do the default activity (that is to reload) after the sumit event
+
+     // reset errors
+     emailError.textContent = '';
+    passwordError.textContent = '';
+
+
+    // get values
+    const email = form.email.value;
+    const password = form.password.value;
+
+     try {
+        const res = await fetch('/login', { //the fetch api is used to send HTTP requests to the route mentioned as its first
+          //argument.
+          method: 'POST', 
+          //the body we are sending is json stringify version 
+          body: JSON.stringify({ email, password }),
+          headers: {'Content-Type': 'application/json'}
+        });
+        const data = await res.json();
+       // console.log(data);
+        //if there is an error we are outputing those
+        if (data.errors) {
+          emailError.textContent = data.errors.email;
+          passwordError.textContent = data.errors.password;
+        }
+        //if there is a valid user we are relocating them to the homepage
+        if (data.user) {
+          location.assign('/');  //this is used to redirect the user to the home page once signed up
+        }
+      }
+     catch (err) {
+        console.log(err);
+      }
+    //NOW IF THERE IS SOME ERROR IN THE FETCH API ENDPOINT THEN THE CATCH BLOCK EXECUTES
+    //the(err) identifier is only available in the catch-block's scope. If you don't need the exception value, it could be omitted.
+    /*Any given exception will be caught only once by the nearest enclosing catch-block unless it is rethrown.
+     Of course, any new exceptions raised in the "inner" block
+      (because the code in catch-block may do something that throws), will be caught by the "outer" block. */
+    
+  });
+  </script>

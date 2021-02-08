@@ -1,0 +1,130 @@
+<%- include('partials/header'); -%>
+
+<body>
+
+  <% for(var e=0 ; e<exp.length ; e++){ %>
+    <div class="cardExperience">
+      <img src="<%=exp[e].img%>" style="width:100%" class="imgExperience">
+      <h1><%= exp[e].name %></h1>
+      <h4><%= exp[e].college %></h4>
+      <p><%= exp[e].intro %></p>
+      <a href="<%=exp[e].readMore_url%>"><button class="buttonExperience">Read More</button></a>
+    </div>
+  <% } %>
+
+  <button class="button">Add Experience</button>
+
+</body>
+ 
+<%- include('partials/footer'); -%>
+
+
+<!--  Code to add an experience-->
+<div class="addques">
+	<div class="modal-contents" style="margin-top: -500px;">
+
+		<div class="close">+</div>
+
+		<form action = "/addexp" method="post" enctype="multipart/form-data">
+      <label>Name</label>
+      <input type="String" placeholder="Enter your name" name="name">
+      <div class="name error"></div>
+
+      <label>Image URL</label>
+      <input type="String" placeholder="image link goes here..." name="img" >
+      <div class='img error'></div>
+      
+
+      <label>College</label>
+      <input type="String" placeholder="Enter your college name" name="college">
+      <div class='college error'></div>
+
+      <label>Introduction</label>
+      <input type="String" placeholder="Write a short intro..." name="intro">
+      <div class='intro error'></div>
+
+      <label>Complete Interview URL</label>
+      <input type="String" placeholder="link to the Complete interview..." name="readMore_url">
+      <div class='readMore_url error'></div>
+
+      <div class="A">
+         <button class="add">Submit</button>
+      </div>
+		</form>
+    </div>
+  </div>
+</div>
+
+<script>
+
+const form = document.querySelector('form');
+
+const nameError = document.querySelector('.name.error');
+const collegeError = document.querySelector('.college.error');
+const introError = document.querySelector('.intro.error');
+const readMore_urlError = document.querySelector('.readMore_url.error');
+
+
+document.querySelector('.button').addEventListener("click", () => {
+  document.querySelector('.addques').style.display = "flex";
+});
+
+  document.querySelector('.close').addEventListener("click", () => {
+    document.querySelector('.addques').style.display = "none";  
+
+    form.name.value = '';
+    form.college.value = '';
+    form.intro.value = ''
+    form.readMore_url.value = ''
+
+    nameError.textContent = '';
+    collegeError.textContent = '';
+    introError.textContent = '';
+    readMore_urlError.textContent = '';
+});
+
+
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // reset errors
+    nameError.textContent = '';
+    collegeError.textContent = '';
+    introError.textContent = '';
+    readMore_urlError.textContent = '';
+
+
+    // get values
+   const name = form.name.value;
+   const img = form.img.value;
+   const college = form.college.value;
+    const intro = form.intro.value;
+    const readMore_url = form.readMore_url.value;
+   
+    try {
+        const res = await fetch('/addexp', { 
+          method: 'POST', 
+          //the body we are sending is json stringify version 
+          body: JSON.stringify({ name,img, college, intro, readMore_url }),
+          headers: {'Content-Type': 'application/json'} // through this we know that json data is going to be sent to the server
+        });
+        const data = await res.json();
+
+        if (data.errors) {
+          nameError.textContent = data.errors.name;
+          collegeError.textContent = data.errors.college;
+          introError.textContent = data.errors.intro;
+          readMore_urlError.textContent = data.errors.readMore_url;
+        }
+        //if there is a valid user we are relocating them to the homepage
+        if (data.exp) {
+          location.assign('/interview_exp/'+data.Cname);  
+        }
+      }
+     catch (err) {
+        console.log(err);
+      }
+  })
+
+</script>

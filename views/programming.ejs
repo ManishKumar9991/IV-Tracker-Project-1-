@@ -1,0 +1,18 @@
+<%- include('partials/header'); -%>
+
+  <% for(var q=0 ; q<topics.length ; q++){ %>
+    <div class="columnCompany">
+      <div class="cardCompany custom">
+        <a href= "/programming/<%= topics[q].name %> " ><img src="misc/background.jpg" alt="background-img" class="imgCompany"></a>
+        <a href= "/programming/<%= topics[q].name %> " ><div class="centered"><h2><%= topics[q].name %></h2></div></a>
+      </div>
+    </div>
+  <% } %>
+
+  <style>
+   
+   
+  </style>
+
+<%- include('partials/footer'); -%>
+

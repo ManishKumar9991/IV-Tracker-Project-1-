@@ -1,0 +1,19 @@
+<%- include('partials/header'); -%>
+
+    <h1 style="color: lightcoral; text-align: center;">Companies</h1>
+    <div class="row">
+
+  <% for(var c=0 ; c<Company.length ; c++){ %>
+    <div class="columnCompany">
+        <div class="cardCompany">
+            <a  href= "/interview_exp/<%= Company[c].name %> "><img src=" <%= Company[c].img_url %>" alt="<%= Company[c].name %>" class="imgCompany"></a> 
+        </div>
+      </div>
+  <% } %>
+
+
+<%- include('partials/footer'); -%>
+
+<script>
+
+</script>
