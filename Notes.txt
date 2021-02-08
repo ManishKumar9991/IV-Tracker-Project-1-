@@ -1,0 +1,69 @@
+npm init // to create a package.json file which stores the dependencis of the current project
+(locally installed packages)
+
+npm install // installs all the dependencies of the project if not contained(like when you download from github)
+
+npm install ejs // used to render dynamic data on the website instead of simple html
+
+npm install express // framework in node
+
+npm install lodash // contains lot of useful inbuilt functions 
+
+npm install mocha // this allows us to identify any errors in connecting with the database
+
+npm install mongoose // it allows for the commmunication with the database in simple manner
+
+Robomongo is a free tool which can give us a visual representation of our data in Mongodb.
+
+npm install nodemon // this automatically detects for changes in code and updates the website.
+
+npm install validator // third party validation check(several functions like emailcheck,etc)
+
+npm install cookie-parser // third party package to create cookies easily
+
+$What is a cookie?
+An HTTP cookie is a small piece of data stored on the user's computer 
+by the web browser while browsing a website.
+Cookies were designed to be a reliable mechanism for websites to remember stateful information 
+or to record the user's browsing activity.
+
+$npm install jsonwebtoken // used for verifying the authentication of the user
+
+$When should you use JSON Web Tokens?
+Here are some scenarios where JSON Web Tokens are useful:
+Authorization: This is the most common scenario for using JWT. 
+Once the user is logged in, each subsequent request will include the JWT,
+allowing the user to access routes, services, and resources that are permitted with that token.
+Single Sign On is a feature that widely uses JWT nowadays, because of its small overhead and its ability
+to be easily used across different domains
+TO KNOW MORE:
+https://jwt.io/introduction 
+
+
+$There are benefits to using JWTs when compared to simple web tokens (SWTs) 
+and Security Assertion Markup Language (SAML) tokens.
+
+More compact: JSON is less verbose than XML, so when it is encoded, a JWT is smaller than a SAML token. 
+This makes JWT a good choice to be passed in HTML and HTTP environments.
+
+More common: JSON parsers are common in most programming languages because they map directly to objects. Conversely,
+ XML doesn't have a natural document-to-object mapping. This makes it easier to work with JWT than SAML assertions.
+
+ $Definition. Data parsing is a method where one string of data gets converted into a different type of data. 
+ So let's say you receive your data in raw HTML, a parser will take the said HTML 
+ and transform it into a more readable data format that can be easily read and understood.
+
+//more about ejs:
+https://medium.com/@Linda_Ikechukwu/https-medium-com-linda-ikechukwu-using-ejs-as-a-template-engine-in-your-express-app-cb3d82c15e17
+
+
+Now we can install the AdminBro package with its Express plugin:
+//npm install admin-bro @admin-bro/express
+
+npm install formidable //this package allows the client to upload files to the server
+To read more:
+https://medium.com/@ShiyaLuo/simple-file-upload-with-express-js-and-formidable-in-node-js-d734d248d615
+
+// hoisting the website
+// Heroku Command Line Interface (CLI). You use the CLI to manage and scale your applications, provision add-ons, 
+//view your application logs, and run your application locally.
